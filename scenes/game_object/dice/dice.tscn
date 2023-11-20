@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjriqhjk3tc8f"]
+[gd_scene load_steps=19 format=3 uid="uid://bjriqhjk3tc8f"]
 
 [ext_resource type="Texture2D" uid="uid://ov1jbsr78arf" path="res://scenes/game_object/dice/diceImage/diceAll1.png" id="1_dmjyv"]
+[ext_resource type="Script" path="res://scenes/game_object/dice/dice.gd" id="1_wqcu2"]
 [ext_resource type="Texture2D" uid="uid://bjb4yccivnphu" path="res://scenes/game_object/dice/diceImage/diceAll2.png" id="2_0k3l8"]
 [ext_resource type="Texture2D" uid="uid://cni4k0htaxk4g" path="res://scenes/game_object/dice/diceImage/diceAll3.png" id="3_jtomf"]
 [ext_resource type="Texture2D" uid="uid://doyrqxpf6l0an" path="res://scenes/game_object/dice/diceImage/diceAll4.png" id="4_8ouy3"]
@@ -13,34 +14,48 @@
 [ext_resource type="Texture2D" uid="uid://b1wno1svm01x8" path="res://scenes/game_object/dice/diceSelectedImage/diceSelectedAll5.png" id="11_egi7x"]
 [ext_resource type="Texture2D" uid="uid://iw3m4qop3h0h" path="res://scenes/game_object/dice/diceSelectedImage/diceSelectedAll6.png" id="12_tceea"]
 
+[sub_resource type="Animation" id="Animation_ans1t"]
+resource_name = "roll"
+length = 0.5
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DiceSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_i2kxo"]
+resource_name = "stop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DiceSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6obd5"]
+_data = {
+"roll": SubResource("Animation_ans1t"),
+"stop": SubResource("Animation_i2kxo")
+}
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_cg7gv"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_dmjyv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("1_dmjyv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0k3l8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_jtomf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_8ouy3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_sgsgj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_d3spo")
-}],
-"loop": true,
-"name": &"roll",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_dmjyv")
@@ -98,10 +113,18 @@ animations = [{
 size = Vector2(120, 120)
 
 [node name="Dice" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_wqcu2")
+value = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6obd5")
+}
 
 [node name="DiceSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cg7gv")
-animation = &"roll"
+animation = &"stop"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_udu43")
