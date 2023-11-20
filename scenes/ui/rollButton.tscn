@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://1fkjraywn01"]
+
+[node name="RollButton" type="Button"]
+custom_minimum_size = Vector2(100, 50)
+offset_right = 100.0
+offset_bottom = 50.0
+pivot_offset = Vector2(50, 25)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "roll"

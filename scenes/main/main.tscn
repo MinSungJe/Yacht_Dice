@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://450b1lb2q7ff"]
+[gd_scene load_steps=3 format=3 uid="uid://450b1lb2q7ff"]
 
-[ext_resource type="PackedScene" uid="uid://bjriqhjk3tc8f" path="res://scenes/game_object/dice/dice.tscn" id="1_shkjk"]
+[ext_resource type="PackedScene" uid="uid://vy25hl7cwimh" path="res://scenes/manager/dice_manager.tscn" id="1_aqhr1"]
+[ext_resource type="PackedScene" uid="uid://dkgs37urr8ex4" path="res://scenes/ui/button_ui.tscn" id="1_o8ri1"]
 
 [node name="main" type="Node"]
 
-[node name="Dice" parent="." instance=ExtResource("1_shkjk")]
-position = Vector2(117, 475)
+[node name="buttonUI" parent="." instance=ExtResource("1_o8ri1")]
+
+[node name="DiceManager" parent="." instance=ExtResource("1_aqhr1")]

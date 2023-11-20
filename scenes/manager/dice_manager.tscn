@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://vy25hl7cwimh"]
+
+[ext_resource type="Script" path="res://scenes/manager/dice_manager.gd" id="1_k83d4"]
+[ext_resource type="PackedScene" uid="uid://bjriqhjk3tc8f" path="res://scenes/game_object/dice/dice.tscn" id="2_cs6lm"]
+
+[node name="DiceManager" type="Node" groups=["diceManager"]]
+script = ExtResource("1_k83d4")
+
+[node name="Dice1" parent="." instance=ExtResource("2_cs6lm")]
+position = Vector2(148, 362)
+
+[node name="Dice2" parent="." instance=ExtResource("2_cs6lm")]
+position = Vector2(360, 362)
+
+[node name="Dice3" parent="." instance=ExtResource("2_cs6lm")]
+position = Vector2(617, 362)
+
+[node name="Dice4" parent="." instance=ExtResource("2_cs6lm")]
+position = Vector2(887, 362)
+
+[node name="Dice5" parent="." instance=ExtResource("2_cs6lm")]
+position = Vector2(1143, 362)
