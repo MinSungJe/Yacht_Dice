@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Dice
 
 signal dice_stopped(value: int)
 
@@ -16,15 +17,15 @@ var movement = Vector2.UP
 
 
 func _ready():
+	$DiceRollGapTimer.timeout.connect(on_dice_gap_timeout)
+	$DiceRollTimer.timeout.connect(on_dice_roll_timeout)
 	set_side(current_side)
 	high_height = randf_range(MIN_HEIGHT, MAX_HEIGHT)
 	
 
 func roll():
 	dice_roll_timer.start()
-	moveDice()
-	change_side()
-	emit_dice_stopped()
+	dice_roll_gap_timer.start()
 	
 	
 func set_side(side: int):
@@ -34,11 +35,21 @@ func set_side(side: int):
 func change_side():
 	var new_side = randi_range(1,6)
 	set_side(new_side)
-	
-
-func moveDice():
-	pass
+	current_side = new_side
 
 	
 func emit_dice_stopped():
 	dice_stopped.emit(current_side)
+	
+
+func on_dice_gap_timeout():
+	if not dice_roll_timer.is_stopped():
+		change_side()
+		animation_player.play("roll")
+		dice_roll_gap_timer.start()
+		
+
+func on_dice_roll_timeout():
+	change_side()
+	animation_player.play("stop")
+	emit_dice_stopped()
